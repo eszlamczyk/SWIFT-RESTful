@@ -1,5 +1,6 @@
 package p.ernest.swift.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import p.ernest.swift.database.entity.*;
@@ -52,7 +53,7 @@ public class BankService {
 
     }
 
-    private boolean isHeadquarters(String swiftCode){
+    public boolean isHeadquarters(String swiftCode){
         if (swiftCode.length() == 3){
             return swiftCode.equals("XXX");
         } else if (swiftCode.length() > 3) {
@@ -76,6 +77,29 @@ public class BankService {
 
     public int getAmountOfBanks(){
         return bankRepository.findAll().size();
+    }
+
+    public List<Bank> getAllBankWithCountryISO2(CountryIso2Code iso2Code){
+        return bankRepository.findAllByCountryIso2Code(iso2Code);
+    }
+
+    @Transactional
+    public boolean removeBank(String swiftCode){
+        Optional<Bank> bankToRemove = bankRepository.findBankBySwiftCode(swiftCode);
+
+        if (bankToRemove.isPresent()){
+            bankRepository.removeBankBySwiftCode(swiftCode);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Bank> getAllBankWithHeadquarterBank(Bank headquarter){
+        return bankRepository.findAllByHeadquarter(headquarter);
+    }
+
+    public Optional<Bank> getBankBySwiftCode(String swiftCode){
+        return bankRepository.getBankBySwiftCode(swiftCode);
     }
 
 }
