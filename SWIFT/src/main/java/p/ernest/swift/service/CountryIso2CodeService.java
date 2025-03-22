@@ -19,4 +19,8 @@ public class CountryIso2CodeService {
                 .orElseGet(() -> countryIso2CodeRepository.save(new CountryIso2Code(countryIso2Code)));
     }
 
+    public Optional<CountryIso2Code> getCountryIso2CodeFromString(String countryIso2Code){
+        return countryIso2CodeRepository.findByIso2Code(countryIso2Code);
+    }
+
 }
