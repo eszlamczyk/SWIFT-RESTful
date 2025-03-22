@@ -17,6 +17,10 @@ public class AddressService {
                 .orElseGet(() -> addressRepository.save(new Address(address, townName, countryName, timeZone)));
     }
 
+    public String getTimeZoneFromCountryName(String countryName){
+        return addressRepository.getAddressByCountryName(countryName).getFirst().getTimeZone().getTimeZone();
+    }
+
 
 
 }

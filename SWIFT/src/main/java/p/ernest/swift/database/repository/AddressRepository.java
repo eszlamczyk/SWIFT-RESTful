@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import p.ernest.swift.database.entity.Address;
 import p.ernest.swift.database.entity.TimeZone;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,4 +15,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
                                                                         String townName,
                                                                         String countryName,
                                                                         TimeZone timeZone);
+
+
+    List<Address> getAddressByCountryName(String countryName);
 }
