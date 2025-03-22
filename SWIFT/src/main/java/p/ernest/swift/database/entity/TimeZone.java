@@ -1,15 +1,15 @@
 package p.ernest.swift.database.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "time_zones")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class TimeZone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
