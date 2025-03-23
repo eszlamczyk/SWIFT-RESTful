@@ -142,3 +142,7 @@ Endpoint for deleting swift-code data if swiftCode matches the one in the databa
     "message": string,
 }
 ```
+
+## Additional info:
+database structure:
+![database photo](database.png)
