@@ -12,7 +12,8 @@ public class BankNameService {
     private final BankNameRepository bankNameRepository;
 
     public BankName createBankNameIfNotExists(String bankName) {
-        return bankNameRepository.findByBankName(bankName)
-                .orElseGet(() -> bankNameRepository.save(new BankName(bankName)));
+        String finalBankName = bankName.toUpperCase();
+        return bankNameRepository.findByBankName(finalBankName)
+                .orElseGet(() -> bankNameRepository.save(new BankName(finalBankName)));
     }
 }

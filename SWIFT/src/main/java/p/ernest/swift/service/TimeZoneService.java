@@ -13,8 +13,9 @@ public class TimeZoneService {
 
 
     public TimeZone createTimeZoneIfNotExists(String timeZone) {
-        return timeZoneRepository.findByTimeZone(timeZone)
-                .orElseGet(() -> timeZoneRepository.save(new TimeZone(timeZone)));
+        String finalTimeZone = timeZone.toUpperCase();
+        return timeZoneRepository.findByTimeZone(finalTimeZone)
+                .orElseGet(() -> timeZoneRepository.save(new TimeZone(finalTimeZone)));
     }
 
 }

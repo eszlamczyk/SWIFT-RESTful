@@ -30,16 +30,19 @@ public class AddressServiceTest {
     @Test
     void testCreateAddressIfNotExists_NewAddress() {
         TimeZone timeZone = new TimeZone("UTC");
-        Address newAddress = new Address("123 Test Street", "Test Town", "Test Country", timeZone);
+        Address newAddress = new Address("123 TEST STREET", "TEST TOWN", "TEST COUNTRY", timeZone);
 
         when(addressRepository.findByAddressAndTownNameAndCountryNameAndTimeZone(
                 anyString(), anyString(), anyString(), any(TimeZone.class)))
                 .thenReturn(Optional.empty());
         when(addressRepository.save(any(Address.class))).thenReturn(newAddress);
 
-        Address result = addressService.createAddressIfNotExists("123 Test Street", "Test Town", "Test Country", timeZone);
+        Address result = addressService.createAddressIfNotExists("123 Test Street", "Test Town",
+                "Test Country", timeZone);
         assertNotNull(result);
-        assertEquals("123 Test Street", result.getAddress());
+        assertEquals("123 TEST STREET", result.getAddress());
+        assertEquals("TEST TOWN", result.getTownName());
+        assertEquals("TEST COUNTRY", result.getCountryName());
     }
 
 }

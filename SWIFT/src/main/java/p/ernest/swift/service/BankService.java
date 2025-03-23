@@ -40,15 +40,15 @@ public class BankService {
         BankName resultBankName = bankNameService.createBankNameIfNotExists(name);
 
         if (isHeadquarters(swiftCode)){
-            return bankRepository.save(new Bank(swiftCode ,resultCodeType, resultBankName,
+            return bankRepository.save(new Bank(swiftCode.toUpperCase() ,resultCodeType, resultBankName,
                     resultCountryIso2Code, resultAddress, true));
         }
 
         Optional<Bank> optionalHeadquarters = getHeadquartersFromPrefix(swiftCode);
 
-        return optionalHeadquarters.map(bank -> bankRepository.save(new Bank(swiftCode, resultCodeType, resultBankName,
+        return optionalHeadquarters.map(bank -> bankRepository.save(new Bank(swiftCode.toUpperCase(), resultCodeType, resultBankName,
                     resultCountryIso2Code, resultAddress, false, bank)))
-                .orElseGet(() -> bankRepository.save(new Bank(swiftCode, resultCodeType, resultBankName,
+                .orElseGet(() -> bankRepository.save(new Bank(swiftCode.toUpperCase(), resultCodeType, resultBankName,
                     resultCountryIso2Code, resultAddress, false, null)));
 
     }

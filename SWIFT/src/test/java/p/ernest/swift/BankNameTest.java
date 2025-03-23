@@ -27,12 +27,12 @@ public class BankNameTest {
 
     @Test
     void testCreateBankNameIfNotExists_NewBankName() {
-        when(bankNameRepository.findByBankName("Test Bank")).thenReturn(Optional.empty());
-        when(bankNameRepository.save(any(BankName.class))).thenReturn(new BankName("Test Bank"));
+        when(bankNameRepository.findByBankName("TEST BANK")).thenReturn(Optional.empty());
+        when(bankNameRepository.save(any(BankName.class))).thenReturn(new BankName("TEST BANK"));
 
         BankName result = bankNameService.createBankNameIfNotExists("Test Bank");
         assertNotNull(result);
-        assertEquals("Test Bank", result.getBankName());
+        assertEquals("TEST BANK", result.getBankName());
     }
 
 

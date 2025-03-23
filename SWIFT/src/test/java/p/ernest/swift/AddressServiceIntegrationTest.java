@@ -37,6 +37,8 @@ public class AddressServiceIntegrationTest {
 
         assertTrue(result.isPresent());
         assertEquals("123 Test Street", result.get().getAddress());
+        assertEquals("Test Town", result.get().getTownName());
+        assertEquals("Test Country", result.get().getCountryName());
     }
 
 }

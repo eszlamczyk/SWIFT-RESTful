@@ -15,8 +15,9 @@ public class CountryIso2CodeService {
     private final CountryIso2CodeRepository countryIso2CodeRepository;
 
     public CountryIso2Code createCountryIso2CodeIfNotExists(String countryIso2Code){
-        return countryIso2CodeRepository.findByIso2Code(countryIso2Code)
-                .orElseGet(() -> countryIso2CodeRepository.save(new CountryIso2Code(countryIso2Code)));
+        String finalCountryIso2Code = countryIso2Code.toUpperCase();
+        return countryIso2CodeRepository.findByIso2Code(finalCountryIso2Code)
+                .orElseGet(() -> countryIso2CodeRepository.save(new CountryIso2Code(finalCountryIso2Code)));
     }
 
     public Optional<CountryIso2Code> getCountryIso2CodeFromString(String countryIso2Code){
