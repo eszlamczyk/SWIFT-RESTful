@@ -86,7 +86,7 @@ public class SwiftCodeController {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
         return ResponseEntity.ok().body(
-                Map.of("message","Successfully created new Bank with SWIFT code" + bank.getSwiftCode()));
+                Map.of("message","Successfully created new Bank with SWIFT code " + bank.getSwiftCode()));
     }
 
     @DeleteMapping("/{swift-code}")
