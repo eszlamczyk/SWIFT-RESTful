@@ -1,6 +1,6 @@
 # SWIFT-RESTful
 
-RESTful api to use api for SWIFT codes
+RESTful api for SWIFT code database
 
 ## Usage
 
