@@ -4,6 +4,8 @@ RESTful api for SWIFT code database
 
 ## Usage
 
+### Local
+
 Setup postgreSQL database with:
 - port: 5432
 - name: banks_database
@@ -26,6 +28,18 @@ cd SWIFT/ && ./gradlew test
 ```
 
 Tests are running on in memory h2 db so there is no need to create database container.
+
+### Using Docker
+
+Build project (located inside `SWIFT` directory):
+```
+SWIFT/gradlew build -p SWIFT/
+```
+
+Run `docker compose` (located in `docker` directory):
+```
+docker compose -f docker/compose.yaml up --build
+```
 
 ## Endpoins
 

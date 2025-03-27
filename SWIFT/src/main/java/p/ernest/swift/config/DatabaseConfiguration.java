@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import p.ernest.swift.service.BankService;
-import java.io.FileReader;
 import java.io.IOException;
 
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,12 @@ import java.util.List;
 @Configuration
 public class DatabaseConfiguration {
 
-    @Value("${bank.csv.filePath}")
-    private String filePath;
+
+    private final ResourceLoader resourceLoader;
+
+    public DatabaseConfiguration(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
 
     @Bean
@@ -29,9 +35,11 @@ public class DatabaseConfiguration {
     ){
         return args -> {
             if (bankService.getAmountOfBanks() < 1){
-                try {
-                    FileReader fileReader = new FileReader(new ClassPathResource(filePath).getFile());
-                    CSVReader reader = new CSVReader(fileReader);
+                Resource resource = resourceLoader.getResource("classpath:banks.csv");
+                try (
+                        InputStreamReader inputStreamReader = new InputStreamReader(resource.getInputStream());
+                        CSVReader reader = new CSVReader(inputStreamReader)
+                ) {
 
                     reader.skip(1);
 

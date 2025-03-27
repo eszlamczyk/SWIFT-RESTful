@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: server_username
+      POSTGRES_PASSWORD: server_password
+      POSTGRES_DB: banks_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: swift-app
+    restart: always
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/banks_database
+      SPRING_DATASOURCE_USERNAME: server_username
+      SPRING_DATASOURCE_PASSWORD: server_password
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
